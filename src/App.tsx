@@ -1,12 +1,14 @@
 import { useState } from "react";
 import type { Pessoa } from "./types/Pessoa";
 import 'antd/dist/reset.css';
-import { Button, Table, Space, Tooltip, Form, Input, Card } from "antd";
+import { Button, Table, Space, Tooltip, Form, Input, Card, Modal } from "antd";
 import type { TableProps } from "antd";
 import { DeleteOutlined, EditOutlined, PlusOutlined, ReloadOutlined } from "@ant-design/icons";
 
 const App = () => {
   
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [form] = Form.useForm();
 
   const [listaPessoas, setListaPessoas] = useState<Pessoa[]>([
@@ -82,8 +84,18 @@ const App = () => {
   return (
     <div>
       <h1>Lista de Pessoas</h1>
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={() => setIsModalOpen(true)}
+      >
+        Adicionar
+      </Button>
 
-      <Card>
+      <Modal
+        title="Teste"
+        open={isModalOpen}
+      >
         <Form
           form={form}
           layout="vertical"
@@ -131,7 +143,7 @@ const App = () => {
             </Space>
           </Form.Item>
         </Form>
-      </Card>
+      </Modal>
 
       <Table dataSource={listaPessoas} columns={columns} rowKey="id" />
     </div>  
