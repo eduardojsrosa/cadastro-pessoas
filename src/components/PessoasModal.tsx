@@ -16,7 +16,7 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
 
   // Para atualizar o modal:
   useEffect(() => {
-    form.resetFields;
+    form.resetFields();
 
     if (pessoa) {
       form.setFieldsValue(pessoa);
@@ -25,7 +25,7 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
 
   function handleFinish (values: Pessoa) {
     onSubmit({ ...pessoa, ...values });
-    form.resetFields;
+    form.resetFields();
   }
 
   return (
