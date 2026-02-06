@@ -64,6 +64,31 @@ export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {
       key: 'telefone'
     },  
     {
+      title: 'Endereço',
+      dataIndex: 'endereco',
+      key: 'endereco'
+    },  
+    {
+      title: 'Cidade',
+      dataIndex: 'cidade',
+      key: 'cidade'
+    }, 
+    {
+      title: 'Estado',
+      dataIndex: 'estado',
+      key: 'estado'
+    },  
+    {
+      title: 'Login',
+      dataIndex: 'login',
+      key: 'login'
+    },  
+    {
+      title: 'Senha',
+      dataIndex: 'senha',
+      key: 'senha'
+    },   
+    {
       title: 'Ações',
       key: 'acoes',
       align: 'center',
@@ -103,6 +128,7 @@ export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {
       dataSource={pessoas} 
       columns={columns} 
       rowKey="id" 
+      scroll={{ x: 'max-content' }}
       locale={{ 
         emptyText: (
           <Empty description="Nenhuma pessoa cadastrada" /> 
