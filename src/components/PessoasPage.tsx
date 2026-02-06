@@ -1,18 +1,28 @@
 import { useState } from "react";
 import type { Pessoa } from "../types/Pessoa";
 import 'antd/dist/reset.css';
-import { Button, Layout, Typography } from "antd";
+import { Button, Flex, Input, Layout, Typography } from "antd";
 import { PessoasTable } from "./PessoasTable";
 import { PessoasModal } from "./PessoasModal";
 import { PlusOutlined } from "@ant-design/icons";
+import { Content, Footer, Header } from "antd/es/layout/layout";
 
 export function PessoasPage () {  
 
   // O State principal que contém a lista de pessoas será disponibilizado ao demais componentes
   const [listaPessoas, setListaPessoas] = useState<Pessoa[]>([
-    { id: 1, nome: 'Eduardo', email: 'teste@teste.com' },
-    { id: 2, nome: 'Camila', email: 'camila@teste.com' },
+    { id: 1, nomeCompleto: 'Eduardo Rosa', cpf: '68066412029', email: 'teste@teste.com',  },
+    { id: 2, nomeCompleto: 'Camila Rosa', cpf: '56748217040', email: 'camila@teste.com',  },
   ]);
+
+  const [filtro, setFiltro] = useState('');
+
+  // Derived State
+  // Ele é o resultado de um filtro do state principal "listaPessoas"
+  const pessoasFiltradas = listaPessoas.filter(pessoa =>
+    pessoa.nomeCompleto.toLowerCase().includes(filtro.toLowerCase()) ||
+    pessoa.email.toLowerCase().includes(filtro.toLowerCase())
+  );
 
   // Controles de estado para o modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,29 +72,59 @@ export function PessoasPage () {
   }
 
   return (
-    <Layout>
-      <Typography.Title>Cadastro de Pessoas</Typography.Title>
-
-      <Button 
-        type="primary" 
-        icon={<PlusOutlined />} 
-        onClick={adicionarPessoa}
+    <Layout style={{ minHeight: "100vh" }}>
+      <Header 
+        style={{ 
+          background: "#1677ff",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center" 
+        }}
       >
-        Incluir
-      </Button>
+        <Typography.Title 
+          level={2} 
+          style={{ color: "white", margin: "0 auto" }}
+        >
+          Cadastro de Pessoas
+        </Typography.Title>
+      </Header>
 
-      <PessoasTable 
-        pessoas={listaPessoas} 
-        onEdit={editarPessoa} 
-        onDelete={excluirPessoa} 
-      />
+      <Content style={{ padding: "24px 48px" }}>
+        <Flex 
+          gap={10}
+          style={{ padding: "10px 0" }}
+        >
+          <Input.Search 
+            placeholder="Digite o termo para a pesquisa"
+            allowClear
+            onSearch={(value) => setFiltro(value)}
+          />
+          <Button 
+            type="primary" 
+            icon={<PlusOutlined />} 
+            onClick={adicionarPessoa}
+          >
+            Incluir
+          </Button>
+        </Flex>
 
-      <PessoasModal
-        open={isModalOpen}
-        pessoa={editingPessoa}
-        onCancel={() => setIsModalOpen(false)}
-        onSubmit={gravarPessoa}
-      /> 
+        <PessoasTable 
+          pessoas={pessoasFiltradas} 
+          onEdit={editarPessoa} 
+          onDelete={excluirPessoa} 
+        />
+
+        <PessoasModal
+          open={isModalOpen}
+          pessoa={editingPessoa}
+          onCancel={() => setIsModalOpen(false)}
+          onSubmit={gravarPessoa}
+        /> 
+      </Content>
+
+      <Footer style={{ textAlign: "center" }}>
+        Desenvolvido por Eduardo Rosa
+      </Footer>
     </Layout>
   );
 }
