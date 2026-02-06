@@ -23,6 +23,13 @@ const App = () => {
     form.resetFields();
   }
 
+  const deletePessoa = (email: string) => {
+    // O filter vai retornar um novo array removendo o item
+    setListaPessoas(
+      listaPessoas.filter(item => item.email !== email)
+    );
+  }
+
   // title = cabeçalho da coluna
   // dataIndex = campo / nome do objeto
   // key é necessário devido ao map
@@ -54,6 +61,7 @@ const App = () => {
               danger 
               icon={<DeleteOutlined />}
               shape="circle"
+              onClick={() => deletePessoa(record.email)}
             />
           </Tooltip>
         </Space>
