@@ -56,38 +56,45 @@ export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
+      width: 200,
       sorter: (a: Pessoa, b: Pessoa) => a.email.localeCompare(b.email),
     },  
     {
       title: 'Telefone',
       dataIndex: 'telefone',
-      key: 'telefone'
+      key: 'telefone',
+      width: 200,
     },  
     {
       title: 'Endereço',
       dataIndex: 'endereco',
-      key: 'endereco'
+      key: 'endereco',
+      width: 200,
     },  
     {
       title: 'Cidade',
       dataIndex: 'cidade',
-      key: 'cidade'
+      key: 'cidade',
+      width: 200,
     }, 
     {
       title: 'Estado',
       dataIndex: 'estado',
-      key: 'estado'
+      key: 'estado',
+      width: 200,
     },  
     {
       title: 'Login',
       dataIndex: 'login',
-      key: 'login'
+      key: 'login',
+      width: 200,
     },  
     {
       title: 'Senha',
       dataIndex: 'senha',
-      key: 'senha'
-    },   
+      key: 'senha',
+      width: 200,
+    },  
     {
       title: 'Ações',
       key: 'acoes',
