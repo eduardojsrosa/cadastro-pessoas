@@ -104,7 +104,11 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
           <Input />
         </Form.Item>
 
-        <Card title="Dados Pessoais">
+        <Card 
+          title="Dados Pessoais" 
+          size="small" 
+          type="inner"
+        >
           <Row gutter={16}>
             <Col xs={24} md={12}>
               <Form.Item
@@ -116,7 +120,6 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
                 ]}
               >
                 <Input 
-                  placeholder="Nome" 
                   allowClear 
                   max={100}
                 />
@@ -133,7 +136,6 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
                 ]}
               >
                 <Input 
-                  placeholder="Email" 
                   prefix={<MailOutlined />}
                   allowClear 
                 />
@@ -142,7 +144,7 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
           </Row>
           
           <Row gutter={16}>
-            <Col xs={24} md={12}>
+            <Col xs={24} md={19}>
               <Form.Item
                 label="CPF"
                 name="cpf" 
@@ -156,12 +158,16 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
                 
               </Form.Item>
             </Col>
-            <Col xs={24} md={12}>
+            <Col xs={24} md={5}>
               <Form.Item
                 label="Data de Nascimento"
                 name="dataNascimento"
               >
-                <DatePicker format="DD/MM/YYYY" />
+                <DatePicker 
+                  placeholder="" 
+                  format="DD/MM/YYYY"
+                  style={{ width: "100%" }}
+                />
               </Form.Item>
             </Col>
           </Row>
@@ -174,7 +180,11 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
           </Form.Item>
         </Card> 
 
-        <Card title="Endereço">
+        <Card 
+          title="Endereço"
+          size="small"
+          type="inner"
+        >
           <Form.Item
             label="CEP"
             name="cep"
@@ -183,7 +193,6 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
             ]}
           >
             <Input.Search 
-              placeholder="Digite o CEP"
               allowClear
               minLength={8}
               maxLength={8}
@@ -192,50 +201,71 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
             />
           </Form.Item>  
 
-          <Form.Item
-            label="Logradouro"
-            name="logradouro"
-          >
-            <Input allowClear />
-          </Form.Item> 
+          <Row gutter={16}>
+            <Col xs={24} md={21}>
+              <Form.Item
+                label="Logradouro"
+                name="logradouro"
+              >
+                <Input allowClear />
+              </Form.Item> 
+            </Col>
+            <Col xs={24} md={3}>
+              <Form.Item
+                label="Número"
+                name="numeroEndereco"
+              >
+                <InputNumber style={{ width: "100%" }} />
+              </Form.Item>
+            </Col>
+          </Row> 
 
-          <Form.Item
-            label="Número"
-            name="numeroEndereco"
-          >
-            <InputNumber />
-          </Form.Item> 
+          <Row gutter={16}>
+            <Col xs={24} md={12}>
+              <Form.Item
+                label="Complemento"
+                name="complementoEndereco"
+              >
+                <Input allowClear />
+              </Form.Item> 
+            </Col>
 
-          <Form.Item
-            label="Complemento"
-            name="complementoEndereco"
-          >
-            <Input allowClear />
-          </Form.Item> 
+            <Col xs={24} md={12}>
+              <Form.Item
+                label="Bairro"
+                name="bairro"
+              >
+                <Input allowClear />
+              </Form.Item> 
+            </Col>
+          </Row>
 
-          <Form.Item
-            label="Bairro"
-            name="bairro"
-          >
-            <Input allowClear />
-          </Form.Item> 
+          <Row gutter={16}>
+            <Col xs={24} md={12}>
+              <Form.Item
+                label="Estado"
+                name="estado"
+              >
+                <Input allowClear />
+              </Form.Item> 
+            </Col>
 
-          <Form.Item
-            label="Estado"
-            name="estado"
-          >
-            <Input allowClear />
-          </Form.Item> 
-
-          <Form.Item
-            label="Cidade"
-            name="cidade"
-          >
-            <Input allowClear />
-          </Form.Item>
+            <Col xs={24} md={12}>
+              <Form.Item
+                label="Cidade"
+                name="cidade"
+              >
+                <Input allowClear />
+              </Form.Item>
+            </Col>
+          </Row>
         </Card> 
 
-        <Card title="Acesso">
+        <Card 
+          title="Acesso"
+          size="small"
+          type="inner"
+        >
           <Row gutter={16}>
             <Col xs={24} md={12}>
               <Form.Item

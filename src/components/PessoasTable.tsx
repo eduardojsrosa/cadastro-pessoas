@@ -113,7 +113,7 @@ export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {
       columns={columns} 
       rowKey="id" 
       scroll={{ x: 'max-content' }}
-      locale={{ 
+      locale={{
         emptyText: (
           <Empty description="Nenhuma pessoa cadastrada" /> 
         )
