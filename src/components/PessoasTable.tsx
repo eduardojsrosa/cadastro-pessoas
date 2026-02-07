@@ -1,5 +1,5 @@
 import type { Pessoa } from "../types/Pessoa";
-import { Space, Tooltip, Button, type TableProps, Table, Empty, Popconfirm } from "antd";
+import { Space, Tooltip, Button, type TableProps, Table, Empty, Popconfirm, Descriptions } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 
@@ -65,49 +65,7 @@ export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {
       dataIndex: 'telefone',
       key: 'telefone',
       width: 200,
-    },  
-    {
-      title: 'CEP',
-      dataIndex: 'cep',
-      key: 'cep',
-      width: 100,
-    },  
-    {
-      title: 'Logradouro',
-      dataIndex: 'logradouro',
-      key: 'logradouro',
-      width: 200,
     },
-    {
-      title: 'Número',
-      dataIndex: 'numeroEndereco',
-      key: 'numeroEndereco',
-      width: 100,
-    },
-    {
-      title: 'Complemento',
-      dataIndex: 'complementoEndereco',
-      key: 'complementoEndereco',
-      width: 200,
-    },
-    {
-      title: 'Bairro',
-      dataIndex: 'bairro',
-      key: 'bairro',
-      width: 200,
-    },
-    {
-      title: 'Estado',
-      dataIndex: 'estado',
-      key: 'estado',
-      width: 200,
-    },
-    {
-      title: 'Cidade',
-      dataIndex: 'cidade',
-      key: 'cidade',
-      width: 200,
-    },  
     {
       title: 'Login',
       dataIndex: 'login',
@@ -163,6 +121,37 @@ export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {
       pagination={{
         pageSize: 10,
         showTotal: (total) => `${total} registros`,
+      }}
+      expandable={{
+        expandedRowRender: (record) => (
+          <Descriptions 
+            title="Endereço"
+            size="small"            
+          >
+            <Descriptions.Item label="CEP">
+              {record.cep}
+            </Descriptions.Item>
+            <Descriptions.Item label="Logradouro">
+              {record.logradouro}
+            </Descriptions.Item>
+            <Descriptions.Item label="Número">
+              {record.numeroEndereco}
+            </Descriptions.Item>
+            <Descriptions.Item label="Complemento">
+              {record.complementoEndereco}
+            </Descriptions.Item>
+            <Descriptions.Item label="Bairro">
+              {record.bairro}
+            </Descriptions.Item>
+            <Descriptions.Item label="Estado">
+              {record.estado}
+            </Descriptions.Item>
+            <Descriptions.Item label="Cidade">
+              {record.cidade}
+            </Descriptions.Item>
+          </Descriptions>
+        ),
+        rowExpandable: () => true
       }}
     />
   )
