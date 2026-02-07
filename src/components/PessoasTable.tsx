@@ -20,6 +20,7 @@ export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {
       key: 'id',
       align: 'center',
       width: 50,
+      fixed: 'left',
       sorter: (a: Pessoa, b: Pessoa) => a.id - b.id,
       defaultSortOrder: "ascend",
     },
@@ -66,26 +67,45 @@ export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {
       width: 200,
     },  
     {
-      title: 'Endereço',
-      dataIndex: 'endereco',
-      key: 'endereco',
-      width: 300,
-      render: (_, record) => (
-        <div>
-          {record.logradouro} 
-        </div>
-      ),
+      title: 'CEP',
+      dataIndex: 'cep',
+      key: 'cep',
+      width: 100,
     },  
     {
-      title: 'Cidade',
-      dataIndex: 'cidade',
-      key: 'cidade',
+      title: 'Logradouro',
+      dataIndex: 'logradouro',
+      key: 'logradouro',
       width: 200,
-    }, 
+    },
+    {
+      title: 'Número',
+      dataIndex: 'numeroEndereco',
+      key: 'numeroEndereco',
+      width: 100,
+    },
+    {
+      title: 'Complemento',
+      dataIndex: 'complementoEndereco',
+      key: 'complementoEndereco',
+      width: 200,
+    },
+    {
+      title: 'Bairro',
+      dataIndex: 'bairro',
+      key: 'bairro',
+      width: 200,
+    },
     {
       title: 'Estado',
       dataIndex: 'estado',
       key: 'estado',
+      width: 200,
+    },
+    {
+      title: 'Cidade',
+      dataIndex: 'cidade',
+      key: 'cidade',
       width: 200,
     },  
     {
@@ -93,13 +113,7 @@ export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {
       dataIndex: 'login',
       key: 'login',
       width: 200,
-    },  
-    {
-      title: 'Senha',
-      dataIndex: 'senha',
-      key: 'senha',
-      width: 200,
-    },  
+    }, 
     {
       title: 'Ações',
       key: 'acoes',
