@@ -1,8 +1,7 @@
-import { Button, Card, Col, DatePicker, Form, Input, Modal, Row } from "antd";
+import { Button, Card, Col, DatePicker, Form, Input, InputNumber, Modal, Row } from "antd";
 import type { Pessoa } from "../types/Pessoa";
 import { MailOutlined, PlusOutlined, ReloadOutlined } from "@ant-design/icons";
-import { useEffect } from "react";
-import Search from "antd/es/transfer/search";
+import { useEffect, useState } from "react";
 
 interface PessoasModalProps {
   open: boolean;
@@ -14,6 +13,7 @@ interface PessoasModalProps {
 export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalProps) {
 
   const [form] = Form.useForm();
+  const [isLoadingCEP, setIsLoadingCEP] = useState(false);
 
   // Para atualizar o modal:
   useEffect(() => {
@@ -29,19 +29,41 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
   // Para buscar o CEP e atualizar os campos:
   async function handleBuscarCEP (cep: string) {
   
-      try {
-        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-        const data = await response.json();
+    // Pesquisar CEP somente com 8 números
+    if (cep.length !== 8) {
+      form.setFields([
+        { name: "cep", errors: ["CEP deve conter 8 números"] }
+      ]);
+      return;
+    }
 
-        form.setFieldsValue({
-          logradouro: data.logradouro,
-          bairro: data.bairro,
-          cidade: data.localidade,
-          estado: data.estado,
-        });
-      } catch {
+    setIsLoadingCEP(true);
 
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = await response.json();
+
+      if (data.erro) {
+        form.setFields([
+          { name: 'cep', errors: ["CEP não encontrado"] }
+        ]);
+
+        return;
       }
+
+      form.setFieldsValue({
+        logradouro: data.logradouro,
+        bairro: data.bairro,
+        cidade: data.localidade,
+        estado: data.estado,
+      });
+    } catch {
+      form.setFields([
+        { name: 'cep', errors: ["Erro ao consultar o CEP"] }
+      ]);
+    } finally {
+      setIsLoadingCEP(false);
+    }
   }
 
   function handleFinish (values: Pessoa) {
@@ -156,11 +178,17 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
           <Form.Item
             label="CEP"
             name="cep"
+            rules={[
+              { len: 8, message: 'CEP deve conter 8 números' }
+            ]}
           >
             <Input.Search 
               placeholder="Digite o CEP"
               allowClear
+              minLength={8}
+              maxLength={8}
               onSearch={(value) => handleBuscarCEP(value)}
+              loading={isLoadingCEP}
             />
           </Form.Item>  
 
@@ -175,7 +203,7 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
             label="Número"
             name="numeroEndereco"
           >
-            <Input allowClear />
+            <InputNumber />
           </Form.Item> 
 
           <Form.Item

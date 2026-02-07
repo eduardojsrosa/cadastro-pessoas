@@ -5,9 +5,15 @@ export interface Pessoa {
     dataNascimento?: string;
     email: string; 
     telefone?: string;
-    endereco?: string;
-    cidade?: string;
+    
+    cep?: string;
+    logradouro?: string;
+    numeroEndereco?: number;
+    complementoEndereco?: number;
+    bairro?: string;
     estado?: string;
+    cidade?: string;    
+    
     login?: string;
     senha?: string;
 }

@@ -69,7 +69,12 @@ export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {
       title: 'Endereço',
       dataIndex: 'endereco',
       key: 'endereco',
-      width: 200,
+      width: 300,
+      render: (_, record) => (
+        <div>
+          {record.logradouro} 
+        </div>
+      ),
     },  
     {
       title: 'Cidade',
