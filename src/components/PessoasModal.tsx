@@ -2,12 +2,23 @@ import { Button, Card, Col, DatePicker, Form, Input, InputNumber, Modal, Row } f
 import type { Pessoa } from "../types/Pessoa";
 import { MailOutlined, PlusOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
+import { formToPessoa, pessoaToForm } from "../mappers/pessoa.mapper";
 
 interface PessoasModalProps {
   open: boolean;
   pessoa: Pessoa | null;
   onCancel: () => void;
   onSubmit: (record: Pessoa) => void;
+}
+
+// Retorno da API ViaCEP
+type ViaCEPResponse = {
+  cep: string;
+  logradouro: string;
+  bairro: string;
+  localidade: string;
+  estado: string;
+  erro?: true;
 }
 
 export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalProps) {
@@ -22,9 +33,9 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
     form.resetFields();
 
     if (pessoa) {
-      form.setFieldsValue(pessoa);
+      form.setFieldsValue(pessoaToForm(pessoa));
     }
-  }, [open]);
+  }, [open, pessoa, form]);
 
   // Para buscar o CEP e atualizar os campos:
   async function handleBuscarCEP (cep: string) {
@@ -41,7 +52,7 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
 
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-      const data = await response.json();
+      const data: ViaCEPResponse = await response.json();
 
       if (data.erro) {
         form.setFields([
@@ -67,7 +78,8 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
   }
 
   function handleFinish (values: Pessoa) {
-    onSubmit({ ...pessoa, ...values });
+    const pessoaConvertida = formToPessoa(values, pessoa ? pessoa : undefined);
+    onSubmit(pessoaConvertida);
     console.table(values);
   }
 
@@ -148,7 +160,12 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
               <Form.Item
                 label="CPF"
                 name="cpf" 
-                rules={[{ min: 11, max: 11 }]}   
+                rules={[
+                  { 
+                    pattern: /^\d{11}$/,
+                    message: 'CPF deve conter 11 números'
+                  }
+                ]}   
               >
                 <Input 
                   minLength={11} 
@@ -189,7 +206,10 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
             label="CEP"
             name="cep"
             rules={[
-              { len: 8, message: 'CEP deve conter 8 números' }
+              { 
+                pattern: /^\d{8}$/, 
+                message: 'CEP deve conter 8 números' 
+              }
             ]}
           >
             <Input.Search 

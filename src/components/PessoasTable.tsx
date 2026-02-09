@@ -2,6 +2,8 @@ import type { Pessoa } from "../types/Pessoa";
 import { Space, Tooltip, Button, type TableProps, Table, Empty, Popconfirm, Descriptions } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
+import type { ColumnsType } from "antd/es/table";
+import type { JSX } from "react";
 
 interface PessoasTableProps {
   pessoas: Pessoa[];
@@ -9,11 +11,11 @@ interface PessoasTableProps {
   onDelete: (id: number) => void;
 }
 
-export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {  
+export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps): JSX.Element {  
   // title = cabeçalho da coluna
   // dataIndex = campo / nome do objeto
   // key é necessário devido ao map
-  const columns: TableProps<Pessoa>['columns'] = [
+  const columns: ColumnsType<Pessoa> = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -49,7 +51,7 @@ export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {
       key: 'dataNascimento',
       align: 'center',
       width: 200,
-      render: (value) => ( 
+      render: (value: Pessoa['dataNascimento']) => ( 
         value ? dayjs(value).format('DD/MM/YYYY') : ''
       )
     },
@@ -123,35 +125,38 @@ export function PessoasTable({ pessoas, onEdit, onDelete }: PessoasTableProps) {
         showTotal: (total) => `${total} registros`,
       }}
       expandable={{
-        expandedRowRender: (record) => (
-          <Descriptions 
-            title="Endereço"
-            size="small"            
-          >
-            <Descriptions.Item label="CEP">
-              {record.cep}
-            </Descriptions.Item>
-            <Descriptions.Item label="Logradouro">
-              {record.logradouro}
-            </Descriptions.Item>
-            <Descriptions.Item label="Número">
-              {record.numeroEndereco}
-            </Descriptions.Item>
-            <Descriptions.Item label="Complemento">
-              {record.complementoEndereco}
-            </Descriptions.Item>
-            <Descriptions.Item label="Bairro">
-              {record.bairro}
-            </Descriptions.Item>
-            <Descriptions.Item label="Estado">
-              {record.estado}
-            </Descriptions.Item>
-            <Descriptions.Item label="Cidade">
-              {record.cidade}
-            </Descriptions.Item>
-          </Descriptions>
-        ),
-        rowExpandable: () => true
+        expandedRowRender: (record: Pessoa): React.ReactNode => {
+          const endereco = record.endereco;
+
+          if (!endereco) return;
+
+          return (
+            <Descriptions title="Endereço" size="small">
+              <Descriptions.Item label="CEP">
+                {endereco.cep}
+              </Descriptions.Item>
+              <Descriptions.Item label="Logradouro">       
+                {endereco.logradouro}
+              </Descriptions.Item>
+              <Descriptions.Item label="Número">
+                {endereco.numeroEndereco}
+              </Descriptions.Item>
+              <Descriptions.Item label="Complemento">
+                {endereco.complementoEndereco}
+              </Descriptions.Item>
+              <Descriptions.Item label="Bairro">
+                {endereco.bairro}
+              </Descriptions.Item>
+              <Descriptions.Item label="Estado">
+                {endereco.estado}
+              </Descriptions.Item>
+              <Descriptions.Item label="Cidade">
+                {endereco.cidade}
+              </Descriptions.Item>
+            </Descriptions>
+          )            
+        },
+        rowExpandable: (record) => !!record.endereco
       }}
     />
   )
