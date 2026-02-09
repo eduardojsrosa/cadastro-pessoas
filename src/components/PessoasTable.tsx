@@ -1,5 +1,5 @@
 import type { Pessoa } from "../types/Pessoa";
-import { Space, Tooltip, Button, type TableProps, Table, Empty, Popconfirm, Descriptions } from "antd";
+import { Space, Tooltip, Button, Table, Empty, Popconfirm, Descriptions } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";

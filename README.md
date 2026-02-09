@@ -1,73 +1,119 @@
-# React + TypeScript + Vite
+<h1 align="center" style="font-weight: bold;">Cadastro de Pessoas 💻</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h2 id="sobre">📌 Sobre</h2>
 
-Currently, two official plugins are available:
+<p>Este projeto se trata de uma aplicação web de cadastro de pessoas que foi desenvolvida como teste técnico. O sistema permite incluir, editar, excluir e visualizar (CRUD) dados pessoais e de endereço. Possuí também o preenchimento automático do endereço via API do ViaCEP.</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<p align="center">
+  <a href="#">📱 Acessar o projeto</a>
+</p>
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+<h2 id="layout">🎨 Layout</h2>
 
-## Expanding the ESLint configuration
+<p align="center">
+  <img src="./images/Listagem.png" alt="Image Example" width="600px">
+</p>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+<p align="center">
+  <img src="./images/Cadastro.png" alt="Image Example" width="600px">
+</p>
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+<h2 id="tecnologias">💻 Tecnologias</h2>
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- React
+- TypeScript
+- Vite
+- Ant Design
+- Dayjs
+- ViaCEP API
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+<h2 id="rodar_projeto">🚀 Como rodar o projeto</h2>
+
+<h3>Pré‑requisitos</h3>
+
+<p>Para rodar esse projeto é necessário ter o Node.js instalado. Abaixo a versão utilizada:</p>
+
+- Node.js (v22.17.0)
+- NPM (10.9.2)
+
+<h3>Clonar projeto</h3>
+
+```bash
+git clone https://github.com/eduardojsrosa/cadastro-pessoas.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd cadastro-pessoas
 ```
+
+<h3>Instalação</h3>
+
+```bash
+npm install
+```
+
+<h3>Executar em modo desenvolvimento</h3>
+
+```bash
+npm run dev
+```
+
+<p>O projeto abrirá em:</p>
+
+```
+http://localhost:5173
+```
+
+---
+
+<h2>🏗️ Estrutura do projeto</h2>
+
+```
+src/
+ ├─ types/           # Tipos do domínio (Pessoa, Endereco, FormValues)
+ ├─ mappers/         # Conversão entre entidade e dados do formulário
+ ├─ components/      # Componentes reutilizáveis (Tabela, Modal)
+ ├─ pages/           # Páginas da aplicação
+ └─ main.tsx         # Entrada da aplicação
+```
+
+<h3>Organização</h3>
+
+- **types/** → Representa o modelo de domínio da aplicação
+- **mappers/** → Responsável por traduzir dados entre a interface visual e a entidade
+- **components/** → Componentes visuais
+- **pages/** → Responsável pelo estado e regras da tela
+
+Essa separação evita acoplamento entre formulário e entidade de domínio.
+
+---
+
+<h2>⚙️ Observações técnicas relevantes</h2>
+
+<h3>Estado da aplicação</h3>
+
+A aplicação não utiliza backend nem banco de dados. Os dados são mantidos apenas em memória através do `useState` no componente de página principal.
+
+<h3>Consulta de CEP</h3>
+
+Foi implemento uma integração com a API pública ViaCEP para buscar e preencher os dados de endereço:
+
+```
+https://viacep.com.br/ws/{cep}/json/
+```
+
+O preenchimento ocorre sob demanda pelo usuário.
+
+<h3>Validações</h3>
+
+- Tipagem estática com TypeScript.
+- Regras de formulário via Ant Design (campos obrigatórios, somente números, limitação de tamanho).
+
+<h3>Interface</h3>
+
+Para o desenvolvimento da interface da aplicação foi utilizado a biblioteca de componentes Ant Design. Alguns recursos utilizados são:
+
+- Tabela com ordenação, paginação e linhas expansíveis para mostrar os dados de endereço.
+- Modal com seções organizadas por `Card`
