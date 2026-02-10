@@ -6,6 +6,7 @@ import { PessoasTable } from "./PessoasTable";
 import { PessoasModal } from "./PessoasModal";
 import { PlusOutlined } from "@ant-design/icons";
 import { Content, Footer, Header } from "antd/es/layout/layout";
+import { message } from "antd/lib";
 
 export function PessoasPage () {  
 
@@ -52,6 +53,8 @@ export function PessoasPage () {
     
     setListaPessoas(newList);
     setIsModalOpen(false);
+
+    message.success('Salvo com sucesso');
   }
 
   const excluirPessoa = (id: number) => {
@@ -59,6 +62,8 @@ export function PessoasPage () {
     setListaPessoas(
       listaPessoas.filter(item => item.id !== id)
     );
+
+    message.success('Registro excluído com sucesso');
   }
 
   const editarPessoa = (values: Pessoa) => {

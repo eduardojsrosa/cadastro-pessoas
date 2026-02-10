@@ -3,6 +3,7 @@ import type { Pessoa } from "../types/Pessoa";
 import { MailOutlined, PlusOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { formToPessoa, pessoaToForm } from "../mappers/pessoa.mapper";
+import { message } from "antd/lib";
 
 interface PessoasModalProps {
   open: boolean;
@@ -80,7 +81,6 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
   function handleFinish (values: Pessoa) {
     const pessoaConvertida = formToPessoa(values, pessoa ? pessoa : undefined);
     onSubmit(pessoaConvertida);
-    console.table(values);
   }
 
   return (
@@ -110,6 +110,7 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
       <Form
         form={form}
         layout="vertical"
+        autoComplete="off"
         onFinish={handleFinish}
       >
         <Form.Item name="id" hidden>
