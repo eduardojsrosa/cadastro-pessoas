@@ -112,7 +112,6 @@ export function PessoasModal({ open, pessoa, onCancel, onSubmit }: PessoasModalP
         layout="vertical"
         autoComplete="off"
         onFinish={handleFinish}
-        autoComplete="off"
         scrollToFirstError
       >
         <Form.Item name="id" hidden>
