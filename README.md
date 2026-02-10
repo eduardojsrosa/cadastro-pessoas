@@ -4,10 +4,6 @@
 
 <p>Este projeto se trata de uma aplicação web de cadastro de pessoas que foi desenvolvida como teste técnico. O sistema permite incluir, editar, excluir e visualizar (CRUD) dados pessoais e de endereço. Possuí também o preenchimento automático do endereço via API do ViaCEP.</p>
 
-<p align="center">
-  <a href="#">📱 Acessar o projeto</a>
-</p>
-
 ---
 
 <h2 id="layout">🎨 Layout</h2>
