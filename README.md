@@ -70,8 +70,7 @@ http://localhost:5173
 src/
  ├─ types/           # Tipos do domínio (Pessoa, Endereco, FormValues)
  ├─ mappers/         # Conversão entre entidade e dados do formulário
- ├─ components/      # Componentes reutilizáveis (Tabela, Modal)
- ├─ pages/           # Páginas da aplicação
+ ├─ components/      # Componentes reutilizáveis (Tabela, Modal, Page)
  └─ main.tsx         # Entrada da aplicação
 ```
 
